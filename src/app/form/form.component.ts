@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component,inject } from '@angular/core';
+import {MyFirstService} from "../services/my-first.service"
 
 @Component({
   selector: 'app-form',
@@ -9,29 +10,48 @@ export class FormComponent {
    
   Fname:string="";
   Lname:string="";
-  msg:string=""
+  discribtion:string=""
   isFormSubmitted:boolean=false;
   msgs: Array<any> = [];
+  // private service: MyFirstService =inject(MyFirstService)   // property injection
 
+  constructor(
+    private service: MyFirstService   // constructor injection
+  ){
+        this.msgs = this.service.getAllMsg();
+        this.isFormSubmitted=true;
+  }
 
 
   OnSubmit(){
    this.isFormSubmitted=true;
    
-   this.msgs.push( 
+  //  this.msgs.push( 
+  //   { 
+  //     "Fname":this.Fname,
+  //     "Lname":this.Lname, 
+  //     "discribtion":this.msg 
+  //   })
+
+  // with service 
+  this.service.insertMsg( 
     { 
       "Fname":this.Fname,
       "Lname":this.Lname, 
-      "msg":this.msg 
-    }
-    )
+      "discribtion":this.discribtion 
+    })
+
+
   }
 
+  // deleteMsg(index:number){
+  //   this.msgs.splice(index,1);
+  // }
+
+  // with service
   deleteMsg(index:number){
-    this.msgs.splice(index,1);
+    this.service.deleteMsg(index);
   }
 
-
-
-  
+ 
 }
