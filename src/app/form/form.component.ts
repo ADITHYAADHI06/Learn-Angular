@@ -7,13 +7,31 @@ import { Component } from '@angular/core';
 })
 export class FormComponent {
    
-  name:string="";
-  password:string="";
+  Fname:string="";
+  Lname:string="";
+  msg:string=""
   isFormSubmitted:boolean=false;
   msgs: Array<any> = [];
 
+
+
   OnSubmit(){
    this.isFormSubmitted=true;
-   this.msgs.push( {"name":this.name, "password":this.password })
+   
+   this.msgs.push( 
+    { 
+      "Fname":this.Fname,
+      "Lname":this.Lname, 
+      "msg":this.msg 
+    }
+    )
   }
+
+  deleteMsg(index:number){
+    this.msgs.splice(index,1);
+  }
+
+
+
+  
 }
